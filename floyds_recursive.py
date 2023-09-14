@@ -1,6 +1,6 @@
 # Floyd Warshall algroithm using Recursion with Python
-
-def floyd_recursive(graph, i, j, k):
+No_path = float('inf')
+def recursive_floyd(graph, i, j, k):
     """
     Recursive function to find the shortest path between vertices i and j
     via intermediate vertices up to k in a graph represented as an adjacency matrix.
@@ -18,10 +18,10 @@ def floyd_recursive(graph, i, j, k):
         return graph[i][j]
     else:
         # Calculate the shortest path without using vertex k
-        without_k = floyd_recursive(graph, i, j, k - 1)
+        without_k = recursive_floyd(graph, i, j, k - 1)
 
         # Calculate the shortest path with vertex k as an intermediate vertex
-        with_k = floyd_recursive(graph, i, k, k - 1) + floyd_recursive(graph, k, j, k - 1)
+        with_k = recursive_floyd(graph, i, k, k - 1) + recursive_floyd(graph, k, j, k - 1)
 
         # Choose the minimum of the two options
         return min(without_k, with_k)
@@ -41,6 +41,6 @@ def floyd_recursive_wrapper(graph):
 
     for i in range(num_vertices):
         for j in range(num_vertices):
-            shortest_paths[i][j] = floyd_recursive(graph, i, j, num_vertices - 1)
+            shortest_paths[i][j] = recursive_floyd(graph, i, j, num_vertices - 1)
 
     return shortest_paths
