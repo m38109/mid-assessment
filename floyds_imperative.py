@@ -29,6 +29,6 @@ def floyd(distance):
                                                      [intermediate] +
                                              distance[intermediate][end_node])
 
-    # Any value that have sys.maxsize has no path
+    
     print(distance)
 floyd(graph)
