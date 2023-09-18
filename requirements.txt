@@ -1,3 +1,8 @@
-pip==23.2.1
-setuptools==68.0.0
-wheel==0.38.4
+certifi==2023.7.22
+charset-normalizer==3.2.0
+docopt==0.6.2
+idna==3.4
+pipreqs==0.4.13
+requests==2.31.0
+urllib3==2.0.4
+yarg==0.1.9
