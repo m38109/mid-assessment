@@ -1,46 +1,50 @@
-# Floyd Warshall algroithm using Recursion with Python
-No_path = float('inf')
-def recursive_floyd(graph, i, j, k):
+import itertools
+
+NO_PATH = float('inf')
+graph = [[0, 7, NO_PATH, 8],
+         [NO_PATH, 0, 5, NO_PATH],
+         [NO_PATH, NO_PATH, 0, 2],
+         [NO_PATH, NO_PATH, NO_PATH, 0]]
+MAX_LENGTH = len(graph[0])
+
+
+# New function calculating the shortest path using a recursive function
+def shortestpath(start, end, intermediate, distance):
     """
-    Recursive function to find the shortest path between vertices i and j
-    via intermediate vertices up to k in a graph represented as an adjacency matrix.
-    
-    Args:
-        graph (list of list): The adjacency matrix of the graph.
-        i (int): Source vertex.
-        j (int): Destination vertex.
-        k (int): Intermediate vertex to consider.
-    
-    Returns:
-        int: The shortest path length between vertices i and j via intermediate vertex k.
+    An implementation of Floyd's algorithm using recursion
     """
-    if k == 0:
-        return graph[i][j]
-    else:
-        # Calculate the shortest path without using vertex k
-        without_k = recursive_floyd(graph, i, j, k - 1)
+    # Calculates the direct paths and exits the recursion only when all intermediate nodes have been tried
+    if intermediate == 0:
+        return(distance[start][end])
 
-        # Calculate the shortest path with vertex k as an intermediate vertex
-        with_k = recursive_floyd(graph, i, k, k - 1) + recursive_floyd(graph, k, j, k - 1)
+    # Return the minimum between two paths with a different intermediate end
+    # node, shortest path between the start point and the intermediate point,
+    # plus the intermediate point and the end point
+    return min(shortestpath(start, end, intermediate - 1, distance),
+               shortestpath(start, intermediate, intermediate - 1, distance) +
+               shortestpath(intermediate, end, intermediate - 1, distance))
 
-        # Choose the minimum of the two options
-        return min(without_k, with_k)
 
-def floyd_recursive_wrapper(graph):
-    """
-    Wrapper function to initiate the recursive Floyd's algorithm for all pairs of vertices.
-    
-    Args:
-        graph (list of list): The adjacency matrix of the graph.
-    
-    Returns:
-        list of list: The matrix of shortest path lengths between all pairs of vertices.
-    """
-    num_vertices = len(graph)
-    shortest_paths = [[0] * num_vertices for _ in range(num_vertices)]
+def floyd(distance):
 
-    for i in range(num_vertices):
-        for j in range(num_vertices):
-            shortest_paths[i][j] = recursive_floyd(graph, i, j, num_vertices - 1)
+    # Calculate the node/path combinations
+    for start_node, end_node in itertools.product(range(MAX_LENGTH),
+                                                  range(MAX_LENGTH)):
 
-    return shortest_paths
+        # Assumes that if start_node and end_node are the same
+        # then the distance would be zero
+        if start_node == end_node:
+            distance[start_node][end_node] = 0
+            continue
+
+        # Runs the shortest path to calculate the shortest path between
+        # start node and end node
+        distance[start_node][end_node] = shortestpath(start_node,
+                                                      end_node,
+                                                      MAX_LENGTH - 1, distance)
+    # Output of the function
+    return distance
+
+if __name__ == '__main__':
+    # Calls the function floyd and passes the definition of graph
+    print(floyd(graph))

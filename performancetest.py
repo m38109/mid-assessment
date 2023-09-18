@@ -17,7 +17,7 @@ def compare_performance():
 
     started_at = time.time()
     for _ in range(2**12):
-        floyds_recursive.floyd_recursive_wrapper(graph)
+        floyds_recursive.floyd(graph)
     elapsed_recursive = time.time() - started_at
 
     started_at = time.time()
