@@ -17,7 +17,7 @@ def shortestpath(start, end, intermediate, distance):
     if intermediate == 0:
         return(distance[start][end])
 
-    # Return the minimum between two paths with a different intermediate end
+    # Return the minimum between two paths with a different intermediate
     # node, shortest path between the start point and the intermediate point,
     # plus the intermediate point and the end point
     return min(shortestpath(start, end, intermediate - 1, distance),

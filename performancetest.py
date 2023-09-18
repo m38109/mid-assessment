@@ -5,8 +5,6 @@ import floyds_recursive
 
 
 def compare_performance():
-    # This isn't really a test since there's nothing to test against: it's
-    # more of a helper script
     NO_PATH = float('inf')
     graph = [
         [0, 7, NO_PATH, 8],
@@ -16,12 +14,12 @@ def compare_performance():
     ]
 
     started_at = time.time()
-    for _ in range(2**12):
+    for _ in range(2**15):
         floyds_recursive.floyd(graph)
     elapsed_recursive = time.time() - started_at
 
     started_at = time.time()
-    for _ in range(2**12):
+    for _ in range(2**15):
         floyds_imperative.floyd(graph)
     elapsed_imperative = time.time() - started_at
 
