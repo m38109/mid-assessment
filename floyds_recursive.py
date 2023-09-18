@@ -17,8 +17,8 @@ def shortestpath(start, end, intermediate, distance):
     if intermediate == 0:
         return(distance[start][end])
 
-    # Return the minimum between two paths with a different intermediate
-    # node, shortest path between the start point and the intermediate point,
+    # Return the minimum between two paths with a different intermediate node, 
+    # shortest path between the start point and the intermediate point,
     # plus the intermediate point and the end point
     return min(shortestpath(start, end, intermediate - 1, distance),
                shortestpath(start, intermediate, intermediate - 1, distance) +
@@ -31,8 +31,7 @@ def floyd(distance):
     for start_node, end_node in itertools.product(range(MAX_LENGTH),
                                                   range(MAX_LENGTH)):
 
-        # Assumes that if start_node and end_node are the same
-        # then the distance would be zero
+        # Assumes that if start_node and end_node are the same then the distance would be zero
         if start_node == end_node:
             distance[start_node][end_node] = 0
             continue

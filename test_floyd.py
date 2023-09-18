@@ -1,6 +1,6 @@
 # tests/test_floyds_recursive.py
 import unittest
-from floyds_recursive import floyd_recursive_wrapper
+from floyds_recursive import floyd
 
 No_Path = float('inf')
 class TestFloydRecursive(unittest.TestCase):
@@ -17,7 +17,7 @@ class TestFloydRecursive(unittest.TestCase):
             [3, No_Path, 0, 1],
             [2, No_Path, No_Path, 0]
         ]
-        self.assertEqual(floyd_recursive_wrapper(graph), expected_result)
+        self.assertEqual(floyd(graph), expected_result)
 
 if __name__ == '__main__':
     unittest.main()
